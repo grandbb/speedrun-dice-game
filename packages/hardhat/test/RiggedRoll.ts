@@ -167,7 +167,7 @@ describe("🚩 Challenge: 🎲 Dice Game", function () {
       expect(
         deployerPrevBalance < deployerCurrentBalance,
         "Error when expecting RiggedRoll balance to increase when calling withdraw",
-      ).to.true;
+      ).to.equal(true);
     });
 
     it("Checkpoint3: Should revert withdraw when amount exceeds contract balance", async () => {

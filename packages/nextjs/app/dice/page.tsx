@@ -31,6 +31,7 @@ const DiceGame: NextPage = () => {
   });
   const { data: prize } = useScaffoldReadContract({ contractName: "DiceGame", functionName: "prize" });
 
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- Sepolia learning demo with a bounded deployment history.
   const { data: rollsHistoryData, isLoading: rollsHistoryLoading } = useScaffoldEventHistory({
     contractName: "DiceGame",
     eventName: "Roll",
@@ -55,6 +56,7 @@ const DiceGame: NextPage = () => {
     }
   }, [rolls, rollsHistoryData, rollsHistoryLoading]);
 
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- Sepolia learning demo with a bounded deployment history.
   const { data: winnerHistoryData, isLoading: winnerHistoryLoading } = useScaffoldEventHistory({
     contractName: "DiceGame",
     eventName: "Winner",
