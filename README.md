@@ -1,3 +1,17 @@
+# grandbb — Dice Game
+
+Completed SpeedRun Ethereum learning implementation. Local grading suite: 8 passing tests. Submission acceptance is tracked by SpeedRun Ethereum separately.
+
+- Network: Ethereum Sepolia (testnet only)
+- Verified contract: https://sepolia.etherscan.io/address/0xc821cc38d903928df15854f8a226f8a0a142f231#code
+- Frontend route: /dice
+- Source scaffold and challenge: https://github.com/scaffold-eth/se-2-challenges
+
+Run with Node.js 22.10+ and the repository's pinned Yarn version: `yarn install`, `yarn test`, `yarn chain`, then `yarn deploy` and `yarn start` in separate terminals. For local UI testing, change `targetNetworks` in `packages/nextjs/scaffold.config.ts` to `[chains.hardhat]`. The shipped config targets Sepolia.
+
+This is a learning project using test assets; it is not a production financial service. Contract ownership is set to the builder wallet in the deploy scripts.
+
+---
 # 🏗 Scaffold-ETH 2
 
 <h4 align="center">

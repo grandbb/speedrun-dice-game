@@ -12,11 +12,16 @@ export default deployScript(
     });
 
     // env.deploy ignores `value`; fund the contract separately (DiceGame has receive())
-    await env.tx({
-      account: deployer,
-      to: diceGame.address,
-      value: parseEther("0.05"),
-    });
+    const existingBalance = BigInt(
+      (await env.network.provider.request({
+        method: "eth_getBalance",
+        params: [diceGame.address, "latest"],
+      })) as string,
+    );
+    // A small Sepolia demo pool is enough to demonstrate the challenge.
+    if (existingBalance < parseEther("0.001")) {
+      await env.tx({ account: deployer, to: diceGame.address, value: parseEther("0.001") - existingBalance });
+    }
 
     console.log("Deployed Dice Game Contract Address", diceGame.address);
 

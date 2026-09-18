@@ -142,14 +142,15 @@ const DiceGame: NextPage = () => {
           <div className="mt-4 pt-2 flex flex-col items-center w-full justify-center border-t-4 border-primary">
             <span className="text-2xl">Rigged Roll</span>
             <div className="flex mt-2 items-center">
-              <span className="mr-2 text-lg">Address:</span> <Address size="lg" address={riggedRollContract?.address} />{" "}
+              <span className="mr-2 text-lg">Address:</span>{" "}
+              <Address size="lg" address={riggedRollContract?.address} />{" "}
             </div>
             <div className="flex mt-1 items-center">
               <span className="text-lg mr-2">Balance:</span>
               <Amount amount={Number(riggedRollBalance?.formatted || 0)} showUsdPrice className="text-lg" />
             </div>
           </div>
-          {/* <button
+          <button
             onClick={async () => {
               if (!rolled) {
                 setRolled(true);
@@ -166,7 +167,7 @@ const DiceGame: NextPage = () => {
             className="mt-2 btn btn-secondary btn-xl normal-case font-xl text-lg"
           >
             Rigged Roll!
-          </button> */}
+          </button>
 
           <div className="flex mt-8">
             {rolled ? (
